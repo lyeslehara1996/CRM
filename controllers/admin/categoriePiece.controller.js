@@ -32,6 +32,13 @@ module.exports.addCategoriePiece = async (req, res) => {
 
 }
 module.exports.getallCategoriePiece = async (req, res) => {
- 
+    try {
+        let categoriePieces = await CategoriePiece.find();
+        if (!categoriePieces) return res.status(500).json({ error: "Categorie not find" });
+        res.json(categoriePieces);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: errMsg });
+    }
 
 }
