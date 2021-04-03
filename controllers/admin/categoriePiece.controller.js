@@ -4,7 +4,7 @@ const { validationResult } = require('express-validator');
 
 
 module.exports.addCategoriePiece = async (req, res) => {
-    
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ message: "there is no request" });
@@ -15,7 +15,7 @@ module.exports.addCategoriePiece = async (req, res) => {
         let categoriePieces = await Modeles.findOne({
             categorie: categorie
         });
-        
+
 
 
         categoriePieces = new CategoriePiece({
