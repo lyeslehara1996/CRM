@@ -10,19 +10,17 @@ module.exports.addCategoriePiece = async (req, res) => {
         return res.status(400).json({ message: "there is no request" });
     }
 
-    const { categorie } = req.body;
+    const { categorie,type} = req.body;
     try {
-        let categoriePieces = await Modeles.findOne({
+        let categoriePieces = await CategoriePiece.findOne({
             categorie: categorie
         });
-
-
-
         categoriePieces = new CategoriePiece({
-            categorie
+            categorie,
+            type
         });
 
-        await CategoriePiece.save();
+        await categoriePieces.save();
         res.send('Categorie saved');
 
     } catch (err) {
