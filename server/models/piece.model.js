@@ -35,7 +35,7 @@ var pieceSchema = new mongoose.Schema({
         type: String,
     },
     dateAddition: {
-        type: date,
+        type: String,
     },
     availableQuantity: {
         type: String,
@@ -45,5 +45,5 @@ var pieceSchema = new mongoose.Schema({
     },
 });
 
-const piece = mongoose.model('piece', ModelesSchema);
+const piece = mongoose.model('piece', pieceSchema);
 module.exports = piece;

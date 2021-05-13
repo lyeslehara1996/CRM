@@ -1,3 +1,8 @@
+const Piece = require('../../models/piece.model');
+const ObjectID = require('mongoose').Types.ObjectId;
+const { validationResult } = require('express-validator');
+
+
 module.exports.addpiece = async (req, res) => {
  
 
