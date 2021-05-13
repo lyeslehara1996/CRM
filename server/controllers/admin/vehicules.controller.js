@@ -14,7 +14,7 @@ module.exports.addvehicule = async (req, res) => {
 	}
 
 	// Get posted data & storing them
-	const { model, descriptions, AnneeDeProduction } = req.body;
+	const { model, descriptions_Modeles, AnneeDeProduction } = req.body;
 	try {
 		let vehicule = await Vehicule.findOne({
 			model: model,
@@ -22,7 +22,7 @@ module.exports.addvehicule = async (req, res) => {
 
 		vehicule = new Vehicule({
 			model,
-			descriptions,
+			descriptions_Modeles,
 			AnneeDeProduction,
 
 		});
@@ -91,7 +91,7 @@ module.exports.updatevehicule = async (req, res) => {
 			{ _id: idVehicule },
 			{
 				$set: {
-					descriptions: req.body.descriptions,
+					descriptions_Modeles: req.body.descriptions_Modeles,
 				}
 			},
 			{ new: true, upsert: true, setDefaultsOnInsert: true },
