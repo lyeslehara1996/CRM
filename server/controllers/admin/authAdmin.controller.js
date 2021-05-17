@@ -44,6 +44,10 @@ module.exports.signupAdmin= async(req, res)=>{
         pseudo:req.body.pseudo,
         email:req.body.email,
         password:req.body.password,
+        bio:req.body.bio,
+        telephone:req.body.telephone,
+        address:req.body.address,
+        ville:req.body.ville,
         roles:'admin'
     });
     try{

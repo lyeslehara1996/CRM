@@ -69,6 +69,18 @@ var passwordValidator = [
         message: 'Password should be between {ARGS[0]} and {ARGS[1]} characters'
     })
 ];
+var PhoneNumberValidator = [
+    validate({
+        validator: 'matches',
+        arguments: /^[+]?[1-9]{9}|[0]+[1-9]{9}$/,
+        message: 'Password needs to have at least three lower case, at least  three number, at between of 2-5 of special character,or  least 3 characters alphanumirique  but no more than 35.'
+    }),
+    validate({
+        validator: 'isLength',
+        arguments: [6, 35],
+        message: 'Password should be between {ARGS[0]} and {ARGS[1]} characters'
+    })
+];
 
 const userSchema = new mongoose.Schema(
     {
@@ -125,17 +137,23 @@ const userSchema = new mongoose.Schema(
         },
         bio: {
             type: String,
-            max: 1024
+            max: 1024,
+            default:''
         },
         telephone: {
             type: String,
+            required: true,
+            maxlength: 10,
+            validate:PhoneNumberValidator
 
         },
         address: {
             type: String,
+            default:''
         },
         ville: {
             type: String,
+            default:''
         },
         resetLink: {
             type: String,
