@@ -39,16 +39,19 @@ module.exports.logoutAdmin=async(req, res)=>{
     res.status(200).redirect('/');
 }
 module.exports.signupAdmin= async(req, res)=>{
+    const{firstname,lastname,pseudo,email , password, bio,telephone ,address,ville}=req.body
+    const picture = req.file.originalname
     const newadmin = new UserModel({
-        firstname:req.body.firstname,
-        lastname:req.body.lastname,
-        pseudo:req.body.pseudo,
-        email:req.body.email,
-        password:req.body.password,
-        bio:req.body.bio,
-        telephone:req.body.telephone,
-        address:req.body.address,
-        ville:req.body.ville,
+        firstname,
+        lastname,
+        pseudo,
+        email,
+        password,
+        bio,
+        telephone,
+        address,
+        ville,
+        picture,
         roles:'admin'
     });
     try{

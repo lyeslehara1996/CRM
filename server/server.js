@@ -35,10 +35,6 @@ app.use('/api/user',userRoute);
 //  app.use('/api/admin/commande',commandeRoutes);
 //  app.use('/api/admin/client',clientRoutes);
 
-app.post('/api/uploads', (req, res) => {
-    const { img } = req.body;
-	res.sendFile(path.join(__dirname, `./uploads/${img}`));
-});
 
 
 //server
