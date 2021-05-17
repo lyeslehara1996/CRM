@@ -38,12 +38,19 @@ module.exports.logout=async(req, res)=>{
 
 
 module.exports.signup= async(req, res)=>{
+    const{firstname,lastname,pseudo,email , password, bio,telephone ,address,ville}=req.body
+    const picture = req.file.originalname
     const newUser = new UserModel({
-        firstname:req.body.firstname,
-        lastname:req.body.lastname,
-        pseudo:req.body.pseudo,
-        email:req.body.email,
-        password:req.body.password,
+        firstname,
+        lastname,
+        pseudo,
+        email,
+        password,
+        bio,
+        telephone,
+        address,
+        ville,
+        picture,
         roles:'user'
     });
     try{

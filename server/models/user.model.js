@@ -142,7 +142,7 @@ const userSchema = new mongoose.Schema(
         },
         telephone: {
             type: String,
-            required: true,
+           // required: true,
             maxlength: 10,
             validate:PhoneNumberValidator
 
