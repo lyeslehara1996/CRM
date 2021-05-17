@@ -60,8 +60,8 @@ var pseudoValidator = [
 var passwordValidator = [
     validate({
         validator: 'matches',
-        arguments: /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d])(?=.*?[\W]).{6,35}$/,
-        message: 'Password needs to have at least one lower case, one uppercase, one number, one special character, and must be at least 6 characters but no more than 35.'
+        arguments: /^((([a-z]){3,20}([0-9]){3,10})([!@#\$%\^&\*]){2,5}|([a-zA-Z0-9]){3,30})$/,
+        message: 'Password needs to have at least three lower case, at least  three number, at between of 2-5 of special character,or  least 3 characters alphanumirique  but no more than 35.'
     }),
     validate({
         validator: 'isLength',
@@ -112,7 +112,7 @@ const userSchema = new mongoose.Schema(
             required: true,
             maxlength: 30,
             minlength: 3,
-            // validate:passwordValidator
+            validate:passwordValidator
         },
         roles: {
             type: String,
