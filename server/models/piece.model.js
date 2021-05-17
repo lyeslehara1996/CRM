@@ -19,29 +19,30 @@ var pieceSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    condition: {
+    etat: {
         type: String, 
     },
     image: {
         type: String,
     },
-    netPrice: {
-        type: String,
+    tva: {
+        type: Number,
     },
-    amountOfTax: {
-        type: String,
+    prix_ht: {
+        type: Number,
     },
-    grandTotal: {
-        type: String,
+    prix_ttc: {
+        type: Number,
     },
-    dateAddition: {
-        type: String,
+    dateAjout: {
+        type: Date,
+        default:Date.now()
     },
-    availableQuantity: {
-        type: String,
+    quantite_disp: {
+        type: Number,
     },
-    quantitySold: {
-        type: String,
+    quantite_vendu: {
+        type: Number,
     },
 });
 

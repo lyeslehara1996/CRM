@@ -3,7 +3,20 @@ const modelesController=require('../../controllers/admin/modeles.controller')
  const vehiculeController=require('../../controllers/admin/vehicules.controller')
  const pieceController=require('../../controllers/admin/piece.controller')
  const categoriePiece=require('../../controllers/admin/categoriePiece.controller')
-
+//uploads
+ const multer = require('multer');
+ const path = require('path');
+ 
+ const storage = multer.diskStorage({
+     destination: './uploads/adminUploads/profileUploads',
+     filename: function (req, file, cb) {
+         cb(null, file.originalname);
+     },
+ });
+ 
+ const upload = multer({
+     storage: storage,
+ });
 
 //ModelsRoutes
 router.post('/modeles', modelesController.addmodeles);
@@ -29,7 +42,7 @@ router.put('/piece/:id', pieceController.updatepiece);
 router.delete('/piece/:id', pieceController.deletepiece);
 
 //categoriePiece
-router.post('/categoriePiece', categoriePiece.addCategoriePiece);
+router.post('/categoriePiece', upload.single('image'),categoriePiece.addCategoriePiece);
 router.get('/categoriePiece', categoriePiece.getallCategoriePiece);
 
 module.exports = router;
