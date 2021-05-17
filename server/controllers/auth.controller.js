@@ -21,9 +21,7 @@ const createToken = (id) => {s
 
 // Nodemailer options (use with g-mail or SMTP)
 var smtpConfig = {
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true, // use SSL
+    service: "Gmail",
     auth: {
         user: 'lyeslehara77@gmail.com',
         pass: 'lyeslehara1996'
@@ -31,43 +29,20 @@ var smtpConfig = {
 };
 var client = nodemailer.createTransport(smtpConfig);
 
+module.exports.signup = async(req,res)=>{
+    console.log(req.body)
+const {firstname,lastname,pseudo,email,password}=req.body
 
-
-module.exports.signup = (req, res) => {
-    const { firstname, lastname, pseudo, email, password } = req.body
-    console.log(req.body);
-    const usercheck = UserModel.findOne({ email });
-    if (!usercheck) {
-        res.status(400).json({ err: "user existe deja " });
-
-    }
-    const temporarytoken = jwt.sign({ firstname, lastname, pseudo, email, password }, secret, { expiresIn: '2h' }); // Create a token for activating account through e-mail
-    var emailes = {
-        from: 'lyeslehara77@gmail.com',
-        to: req.body.email,
-        subject: 'Your Activation Link',
-        text: 'Hello ' + req.body.firstname,
-        html: `
-                   <h2> Hello clik in this email and confirm your account </h2> </br> </br>
-                   <p> http://localhost:5000/api/user/activationCompte/${temporarytoken}</p>
-
-                   `
-    };
-    // Function to send e-mail to the user
-    client.sendMail(emailes, function (err, info) {
-        if (err) {
-            console.log(err); // If error with sending e-mail, log to console/terminal
-            console.log(temporarytoken)
-        } else {
-            console.log(info); // Log success message to console if sent
-        }
-    });
-    res.json({ success: true, message: 'votre compte est cee avec succes confermer votre email please !' }); // Send success message back to controller/request
-
-    res.status(200).redirect("/login");
-
+try{
+    const user=await UserModel.create({firstname,lastname,pseudo,email,password});
+    res.status(200).json({user: user._id});
+    console.log(user)
 }
-
+catch(err){
+    const errors =signUpErrors(err);
+    res.status(201).send({ errors});
+}
+}
 module.exports.activerCompte = async (req, res) => {
 
     const { token } = req.body;

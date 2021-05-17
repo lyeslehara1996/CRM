@@ -4,71 +4,71 @@ const bcrypt = require('bcrypt');
 var validate = require('mongoose-validator'); // Import Mongoose Validator Plugin
 
 // // User Name Validator
-// var firstnameValidator = [
-//     // validate({
-//     //     // validator: 'matches',
-//     //     // arguments: /^(([a-zA-Z]{3,20})+([a-zA-Z]{3,20})+)+$/,
-//     //     message: 'firstname must be at least 3 characters, max 30, no special characters or numbers, must have space in between name.'
-//     // }),
-//     validate({
-//         validator: 'isLength',
-//         arguments: [3, 20],
-//         message: 'firstname should be between {ARGS[0]} and {ARGS[1]} characters'
-//     })
-// ];
-// var lastnameVAlidator = [
-//     // validate({
-//     //     validator: 'matches',
-//     //     arguments: /^(([a-zA-Z]{3,20})+[ ]+([a-zA-Z]{3,20})+)+$/,
-//     //     message: 'lastename must be at least 3 characters, max 30, no special characters or numbers, must have space in between name.'
-//     // }),
-//     validate({
-//         validator: 'isLength',
-//         arguments: [3, 20],
-//         message: 'lastename should be between {ARGS[0]} and {ARGS[1]} characters'
-//     })
-// ];
+ var firstnameValidator = [
+    validate({
+        validator: 'matches',
+        arguments: /^(([a-zA-Z]{3,20}))+$/,
+        message: 'firstname must be at least 3 characters, max 30, no special characters or numbers, must have space in between name.'
+    }),
+    validate({
+        validator: 'isLength',
+        arguments: [3, 30],
+        message: 'firstname should be between {ARGS[0]} and {ARGS[1]} characters'
+    })
+];
+var lastnameVAlidator = [
+    validate({
+        validator: 'matches',
+        arguments: /^(([a-zA-Z]{3,30}))+$/,
+        message: 'lastename must be at least 3 characters, max 30, no special characters or numbers, must have space in between name.'
+    }),
+    validate({
+        validator: 'isLength',
+        arguments: [3, 30],
+        message: 'lastename should be between {ARGS[0]} and {ARGS[1]} characters'
+    })
+];
 
-// // User E-mail Validator
-// var emailValidator = [
-//     // validate({
-//     //     validator: 'matches',
-//     //     arguments: /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/,
-//     //     message: 'email must be at least 3 characters, max 40, no special characters or numbers, must have space in between name.'
-//     // }),
-//     validate({
-//         validator: 'isLength',
-//         arguments: [3, 40],
-//         message: 'Email should be between {ARGS[0]} and {ARGS[1]} characters'
-//     })
-// ];
+// User E-mail Validator
+var emailValidator = [
+    validate({
+        validator: 'matches',
+        arguments: /^(([a-zA-Z0-9._-]{3,})+@+([a-z]{2,10})+.+(org|fr|dz))+$/,
+        message: 'email must be at least 3 characters, must have space in between name, containe org dz or fr.'
+    }),
+    validate({
+        validator: 'isLength',
+        arguments: [3, 40],
+        message: 'Email should be between {ARGS[0]} and {ARGS[1]} characters'
+    })
+];
 
-// // Username Validator
-// var pseudoValidator = [
-//     validate({
-//         validator: 'isLength',
-//         arguments: [3, 25],
-//         message: 'pseudo should be between {ARGS[0]} and {ARGS[1]} characters'
-//     }),
-//     // validate({
-//     //     validator: 'isAlphanumeric',
-//     //     message: 'pseudo must contain letters and numbers only'
-//     // })
-// ];
+// Username Validator
+var pseudoValidator = [
+    validate({
+        validator: 'matches',
+        arguments: /^(([a-zA-Z0-9]{5,30})|([a-zA-Z]{5,30}))+$/,
+        message: 'pseudo should be between {ARGS[0]} and {ARGS[1]} characters'
+    }),
+    validate({
+        validator: 'isAlphanumeric',
+        message: 'pseudo must contain letters and numbers only'
+    })
+];
 
-// // Password Validator
-// var passwordValidator = [
-//     // validate({
-//     //     validator: 'matches',
-//     //     arguments: /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d])(?=.*?[\W]).{6,35}$/,
-//     //     message: 'Password needs to have at least one lower case, one uppercase, one number, one special character, and must be at least 6 characters but no more than 35.'
-//     // }),
-//     validate({
-//         validator: 'isLength',
-//         arguments: [6, 35],
-//         message: 'Password should be between {ARGS[0]} and {ARGS[1]} characters'
-//     })
-// ];
+// Password Validator
+var passwordValidator = [
+    validate({
+        validator: 'matches',
+        arguments: /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d])(?=.*?[\W]).{6,35}$/,
+        message: 'Password needs to have at least one lower case, one uppercase, one number, one special character, and must be at least 6 characters but no more than 35.'
+    }),
+    validate({
+        validator: 'isLength',
+        arguments: [6, 35],
+        message: 'Password should be between {ARGS[0]} and {ARGS[1]} characters'
+    })
+];
 
 const userSchema = new mongoose.Schema(
     {
@@ -76,27 +76,27 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
             minlength: 3,
-            maxlength: 55,
+            maxlength: 30,
             trim: true,
-            //    validate: firstnameValidator
+          validate: firstnameValidator
         },
         lastname: {
             type: String,
-            // required:true,
+             required:true,
             minlength: 3,
-            maxlength: 55,
+            maxlength: 30,
             trim: true,
-            // validate:lastnameVAlidator 
+             validate:lastnameVAlidator 
 
         },
         pseudo: {
             type: String,
-            // required:true,
+            required:true,
             minlength: 3,
             maxlength: 55,
             unique: true,
             trim: true,
-            // validate: pseudoValidator
+             validate: pseudoValidator
         },
         email: {
             type: String,
@@ -105,13 +105,13 @@ const userSchema = new mongoose.Schema(
             lowercase: true,
             unique: true,
             trim: true,
-            // validate:emailValidator
+            validate:emailValidator
         },
         password: {
             type: String,
             required: true,
-            maxlength: 1024,
-            minlength: 6,
+            maxlength: 30,
+            minlength: 3,
             // validate:passwordValidator
         },
         roles: {
