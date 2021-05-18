@@ -3,7 +3,7 @@ const express = require('express');
 const userRoute=require('./routes/user.routes')
  const adminRoutes=require('./routes/admin/admineAuth.routes')
  const vehiculeRoutes=require('./routes/admin/vehicule.routes')
-
+ const PieceRoutes=require('./routes/admin/piece.routes')
 //  const commandeRoutes=require('./routes/admin/commande.routes')
 //  const clientRoutes=require('./routes/admin/client.routes')
 
@@ -31,7 +31,7 @@ app.get('/jwtid',requireAuth,(req,res)=>{
 app.use('/api/user',userRoute);
  app.use('/api/admin',adminRoutes);
  app.use('/api/admin/vehicule',vehiculeRoutes);
-
+ app.use('/api/admin/piece',PieceRoutes);
 //  app.use('/api/admin/commande',commandeRoutes);
 //  app.use('/api/admin/client',clientRoutes);
 

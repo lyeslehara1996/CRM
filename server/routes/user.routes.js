@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const UserpanierController = require('../controllers/Userpanier.controller')
 const authsController = require('../controllers/auths.controller')
 const authController = require('../controllers/auth.controller')
 //const userController = require('../controllers/user.controller')
@@ -28,5 +29,8 @@ router.post('/activationCompte', requiredCompte, authController.activerCompte);
 router.put('/password/forgotPassword', authController.forgotpassword);
 router.put('/password/resetPassword/', authController.resetpassword);
 //user DATABASE 
+router.post('/ajoutPanier/:id',UserpanierController.addPanier);
+router.post('/getPanier',UserpanierController.getPanier);
+router.delete('/suppPanier', UserpanierController.deletePanier);
 
 module.exports = router;

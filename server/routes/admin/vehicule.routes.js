@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const modelesController=require('../../controllers/admin/modeles.controller')
  const vehiculeController=require('../../controllers/admin/vehicules.controller')
- const pieceController=require('../../controllers/admin/piece.controller')
+// const pieceController=require('../../controllers/admin/piece.controller')
  const categoriePiece=require('../../controllers/admin/categoriePiece.controller')
 //uploads
  const multer = require('multer');
@@ -35,11 +35,11 @@ router.delete('/vehicule/:id', vehiculeController.deletevehicule);
 
 // //PiecesRoutes
 
-router.post('/piece', pieceController.addpiece);
-router.get('/piece/', pieceController.getallpiece);
-router.get('/piece/:id', pieceController.getpiece);
-router.put('/piece/:id', pieceController.updatepiece);
-router.delete('/piece/:id', pieceController.deletepiece);
+// router.post('/piece', pieceController.addpiece);
+// router.get('/piece/', pieceController.getallpiece);
+// router.get('/piece/:id', pieceController.getpiece);
+// router.put('/piece/:id', pieceController.updatepiece);
+// router.delete('/piece/:id', pieceController.deletepiece);
 
 //categoriePiece
 router.post('/categoriePiece', upload.single('image'),categoriePiece.addCategoriePiece);

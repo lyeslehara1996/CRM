@@ -4,7 +4,7 @@ const { validationResult } = require('express-validator');
 
 
 module.exports.addpiece = async (req, res) => {
-    const{reference,description ,category , type , tva ,prix_ht, prix_ttc ,dateAjout ,quantite_disp,quantite_vendu }=req.body
+    const{reference,description ,category , etat,type , tva ,prix_ht, prix_ttc ,dateAjout ,quantite_disp,quantite_vendu }=req.body
     const image = req.file.originalname
     const piece = new Piece({
         reference,
@@ -36,7 +36,7 @@ module.exports.getallpiece = async (req, res) => {
 			.populate({
 				path: 'category',
 				model: 'categoiePiece',
-				select: 'categorie	',
+				select: 'categorie -_id',
 			});
 		if (!piece)
 			return res.status(500).json({
