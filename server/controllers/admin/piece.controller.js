@@ -4,8 +4,13 @@ const { validationResult } = require('express-validator');
 
 
 module.exports.addpiece = async (req, res) => {
-    const{reference,description ,category , etat,type , tva ,prix_ht, prix_ttc ,dateAjout ,quantite_disp,quantite_vendu }=req.body
+  
+  
+    const{reference,description ,category , etat,type , tva ,prix_ht ,dateAjout ,quantite_disp,quantite_vendu }=req.body
+    const prix_ttc = prix_ht * (1 + tva);
     const image = req.file.originalname
+  
+  
     const piece = new Piece({
         reference,
         description,

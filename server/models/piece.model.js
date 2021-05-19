@@ -6,6 +6,7 @@ var pieceSchema = new mongoose.Schema({
     reference: {
         type: String,
         required: true,
+        Unique:true,
     },
     description: {
         type: String,
@@ -22,6 +23,7 @@ var pieceSchema = new mongoose.Schema({
     },
     etat: {
         type: String, 
+        enum: ['neuf', 'occasion']
     },
     image: {
         type: String,
