@@ -72,7 +72,7 @@ var passwordValidator = [
 var PhoneNumberValidator = [
     validate({
         validator: 'matches',
-        arguments: /^[+]?[1-9]{9}|[0]+[1-9]{9}$/,
+        arguments: /^[+]?[0-9]{9}|[0]+[0-9]{9}$/,
         message: 'Password needs to have at least three lower case, at least  three number, at between of 2-5 of special character,or  least 3 characters alphanumirique  but no more than 35.'
     }),
     validate({
@@ -94,34 +94,34 @@ const userSchema = new mongoose.Schema(
         },
         lastname: {
             type: String,
-             required:true,
+          required:true,
             minlength: 3,
             maxlength: 30,
             trim: true,
-             validate:lastnameVAlidator 
+              validate:lastnameVAlidator 
 
         },
         pseudo: {
             type: String,
-            required:true,
+             required:true,
             minlength: 3,
             maxlength: 55,
             unique: true,
             trim: true,
-             validate: pseudoValidator
+              validate: pseudoValidator
         },
         email: {
             type: String,
-            required: true,
+             required: true,
             validate: [isEmail],
             lowercase: true,
             unique: true,
             trim: true,
-            validate:emailValidator
+             validate:emailValidator
         },
         password: {
             type: String,
-            required: true,
+             required: true,
             maxlength: 30,
             minlength: 3,
             validate:passwordValidator
@@ -142,9 +142,9 @@ const userSchema = new mongoose.Schema(
         },
         telephone: {
             type: String,
-           // required: true,
+            required: true,
             maxlength: 10,
-            validate:PhoneNumberValidator
+             validate:PhoneNumberValidator
 
         },
         address: {
@@ -171,33 +171,24 @@ const userSchema = new mongoose.Schema(
 
 )
 //plaay function before save cryptage de mot de passe 
-userSchema.pre("save", async function (next) {
+userSchema.pre("save", async function(next) {
     const salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(this.password, salt);
     next();
-});
-
-//login condition to compare password 
-userSchema.statics.login = async function (email, password) {
+  });
+  
+  userSchema.statics.login = async function(email, password) {
     const user = await this.findOne({ email });
-    console.log(user);
     if (user) {
-        const auth = await bcrypt.compare(password, user.password);
-        if (auth) {
-            return user;
-        }
-        throw Error("mot de passe incorrect")
+      const auth = await bcrypt.compare(password, user.password);
+      if (auth) {
+        return user;
+      }
+      throw Error('incorrect password');
     }
-    throw Error(" email incorrect")
-
-};
-
-userSchema.methods = {
-
-    authenticate: function (password) {
-        return bcrypt.compareSync(password, this.password)
-    }
-}
+    throw Error('incorrect email')
+  };
+  
 
 const UserModel = mongoose.model('user', userSchema);
 module.exports = UserModel;

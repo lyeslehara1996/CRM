@@ -5,11 +5,10 @@ var validate = require('mongoose-validator'); // Import Mongoose Validator Plugi
 const PanierSchema = new mongoose.Schema(
     {
         client: {
-            type: mongoose.SchemaTypes.ObjectId,
-            ref: 'user',
-            required: true,
-        },
-
+        type: mongoose.SchemaTypes.ObjectId,
+		ref: 'Client',
+		required: true,
+        }
     },
     {
         timestamps: true,
@@ -17,5 +16,5 @@ const PanierSchema = new mongoose.Schema(
 
 )
 
-const Panier = mongoose.model('Panier', PanierSchema);
+const Panier = mongoose.model('panier', PanierSchema);
 module.exports = Panier;
